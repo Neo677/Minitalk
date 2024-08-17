@@ -1,20 +1,20 @@
 SOURCE = server.c client.c
 OBJECT = $(SOURCE:.c=.o)
 CC = gcc 
-CFLAGS = -Wall -Werror -Wextra  
+CFLAGS = -Wall -Werror -Wextra -fPIC
 
 all : server client
 
-server: server.o printf/ft_printf.a
-	$(CC) -o $@ $< printf/ft_printf.a
+server: server.o printf/ft_printf
+	$(CC) -o $@ $< printf/ft_printf -pie
 
-client: client.o printf/ft_printf.a
-	$(CC) -o $@ $< printf/ft_printf.a
+client: client.o printf/ft_printf
+	$(CC) -o $@ $< printf/ft_printf -pie
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
-printf/ft_printf.a:
+printf/ft_printf:
 	make -C printf
 
 clean : 
@@ -22,7 +22,7 @@ clean :
 	make -C printf clean
 
 fclean : clean
-	rm -f server client printf/ft_printf.a
+	rm -f server client printf/ft_printf
 
 re : fclean all
 

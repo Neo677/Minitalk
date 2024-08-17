@@ -16,19 +16,22 @@
 
 # include "printf/ft_printf.h"
 
-void	ft_send_bits(int pid, char i)
+void	ft_send_bits(int pid, unsigned char str)
 {
 	int	bits;
+	unsigned char temp_str;
 
-	bits = 0;
-	while (bits < 8)
+	bits = 8;
+	temp_str = str;
+	while (bits > 0)
 	{
-		if ((i & (0x01 << bits)) != 0)
-			kill(pid, SIGUSR1);
-		else
+		bits--;
+		temp_str = str >> bits;
+		if (temp_str % 2 == 0)
 			kill(pid, SIGUSR2);
-		usleep(100);
-		bits++;
+		else
+			kill(pid, SIGUSR1);
+		usleep(42);
 	}
 }
 
@@ -52,10 +55,6 @@ static int	ft_atoi(const char *str)
 	while ((str[i] >= '0' && str[i] <= '9') && (str[i]))
 	{
 		nb = (nb * 10) + (str[i] - '0');
-		if ((nb > 9223372036854775807) && neg == 1)
-			return (-1);
-		if ((nb > 9223372036854775807) && neg == -1)
-			return (0);
 		i++;
 	}
 	return (nb * neg);
@@ -63,20 +62,20 @@ static int	ft_atoi(const char *str)
 
 int main(int ac, char **av)
 {
-	__pid_t server_pid;
+	__pid_t	pid;
+	const char *str;
 	int i;
-	const char *message;
 
 	if (ac != 3)
 	{
-		ft_printf("Usage: %s <pid> <message>\n", av[0]);
-		exit(0);
+		ft_printf("use %s <pid> <message>\n", av[0]);
+		exit (0);
 	}
-	server_pid = ft_atoi(av[1]);
-	message = av[2];
+	pid = ft_atoi(av[1]);
+	str = av[2];
 	i = 0;
-	while (message[i])
-		ft_send_bits(server_pid, message[i++]);
-	ft_send_bits(server_pid, '\0');
-	return (0);
+	while (str[i])
+		ft_send_bits(pid, str[i++]);
+	ft_send_bits(pid, '\0');
+	return(0);
 }
