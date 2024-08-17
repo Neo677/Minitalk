@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
 #include <unistd.h>
 #include <signal.h>
 #include <stdlib.h>
 
+# include "printf/ft_printf.h"
 
 void	ft_send_bits(int pid, char i)
 {
