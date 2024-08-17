@@ -10,7 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "printf/ft_printf.h"
+
 #define FIN_TRANSMISSION '\0'
 
 void	ft_handle(int sig)
