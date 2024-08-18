@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 10:01:33 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/16 10:01:36 by thobenel         ###   ########.fr       */
+/*   Updated: 2024/08/18 12:00:32 by tomtom           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "ft_printf/ft_printf.h"
 #include <signal.h>
 #include <stdlib.h>
-
-# include "printf/ft_printf.h"
+#include <unistd.h>
 
 void	ft_send_bits(int pid, unsigned char str)
 {
-	int	bits;
-	unsigned char temp_str;
+	int				bits;
+	unsigned char	carac;
 
 	bits = 8;
-	temp_str = str;
+	carac = str;
 	while (bits > 0)
 	{
 		bits--;
-		temp_str = str >> bits;
-		if (temp_str % 2 == 0)
+		carac = str >> bits;
+		if (carac % 2 == 0)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
@@ -60,16 +59,16 @@ static int	ft_atoi(const char *str)
 	return (nb * neg);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	__pid_t	pid;
-	const char *str;
-	int i;
+	pid_t		pid;
+	const char	*str;
+	int			i;
 
 	if (ac != 3)
 	{
 		ft_printf("use %s <pid> <message>\n", av[0]);
-		exit (0);
+		exit(0);
 	}
 	pid = ft_atoi(av[1]);
 	str = av[2];
@@ -77,5 +76,5 @@ int main(int ac, char **av)
 	while (str[i])
 		ft_send_bits(pid, str[i++]);
 	ft_send_bits(pid, '\0');
-	return(0);
+	return (0);
 }

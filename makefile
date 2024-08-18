@@ -1,29 +1,30 @@
-SOURCE = server.c client.c
-OBJECT = $(SOURCE:.c=.o)
-CC = gcc 
-CFLAGS = -Wall -Werror -Wextra -fPIC
+SOURCES = server.c client.c
+OBJECTS = $(SOURCES:.c=.o)
 
-all : server client
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-server: server.o printf/ft_printf
-	$(CC) -o $@ $< printf/ft_printf -pie
+all: server client
 
-client: client.o printf/ft_printf
-	$(CC) -o $@ $< printf/ft_printf -pie
+server: server.o ft_printf/libftprintf.a
+	$(CC) -o $@ $< -Lft_printf -lftprintf
+
+client: client.o ft_printf/libftprintf.a
+	$(CC) -o $@ $< -Lft_printf -lftprintf
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $<
 
-printf/ft_printf:
-	make -C printf
+ft_printf/libftprintf.a:
+	make -C ft_printf
 
-clean : 
-	rm -r $(OBJECT)
-	make -C printf clean
+clean:
+	rm -f $(OBJECTS)
+	make -C ft_printf clean
+	
+fclean: clean
+	rm -f server client ft_printf/libftprintf.a
 
-fclean : clean
-	rm -f server client printf/ft_printf
+re: fclean all
 
-re : fclean all
-
-.PHONY : all printf clean fclean re
+.PHONY: all clean fclean re
