@@ -13,8 +13,8 @@
 #include "ft_printf/ft_printf.h"
 #include <signal.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 void	ft_send_bits(int pid, unsigned char str)
 {
@@ -64,22 +64,62 @@ static int	ft_atoi(const char *str)
 	return (nb * neg);
 }
 
+void	delete_signal(pid_t signal)
+{
+	kill(signal, SIGUSR2);
+}
+
+// int	main(int ac, char **av)
+// {
+// 	pid_t pid;
+// 	const char	*str;
+// 	int			i;
+
+// 	if (ac != 3)
+// 	{
+// 		ft_printf("use %s <pid> <message>\n", av[0]);
+// 		exit(0);
+// 	}
+// 	pid = ft_atoi(av[2]);
+// 	str = av[2];
+// 	i = 0;
+// 	while (str[i])
+// 		ft_send_bits(pid, str[i++]);
+// 	ft_send_bits(pid, '\0');
+// 	return (0);
+// }
+
 int	main(int ac, char **av)
 {
-	pid_t pid;
+	pid_t		pid;
 	const char	*str;
 	int			i;
 
+	i = 0;
 	if (ac != 3)
 	{
-		ft_printf("use %s <pid> <message>\n", av[0]);
+		ft_printf("utilise D'abord la PID = ****** || ton message == *****\n",
+			av[0]);
 		exit(0);
 	}
-	pid = ft_atoi(av[1]);
+	pid = ft_atoi(av[2]);
 	str = av[2];
-	i = 0;
 	while (str[i])
 		ft_send_bits(pid, str[i++]);
 	ft_send_bits(pid, '\0');
+	delete_signal(pid);
 	return (0);
 }
+
+// int main(int argc, char **argv) {
+//     if (argc == 3 && argv[1][0] == 'D') { 
+	// Supposons que 'D' en argument indique la demande de suppression
+//         pid_t server_pid = atoi(argv[2]);
+//         send_delete_signal(server_pid);
+//         printf("Signal de suppression envoyé au serveur (PID: %d)\n",
+	server_pid);
+//     } else {
+//         // Autre logique du client (envoi de message, etc.)
+//     }
+//     return (0);
+// }

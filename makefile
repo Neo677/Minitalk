@@ -20,6 +20,8 @@ ft_printf/libftprintf.a:
 
 clean:
 	rm -f $(OBJECTS)
+	rm -f server
+	rm -f client
 	make -C ft_printf clean
 	
 fclean: clean

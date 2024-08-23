@@ -30,7 +30,7 @@ void	ft_handle(int sig)
 		if (str == FIN_TRANSMISSION)
 			ft_printf("\n");
 		else
-			ft_printf("%c", str);
+			ft_printf("caractere recu = %c\n", str);
 		i = 0;
 		str = 0;
 	}
