@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
+/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 10:01:33 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/18 12:00:32 by tomtom           ###   ########.fr       */
+/*   Created: 2024/08/23 12:06:56 by thobenel          #+#    #+#             */
+/*   Updated: 2024/08/23 12:06:58 by thobenel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
 #include <signal.h>
-#include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
+#include <sys/types.h>
 
 void	ft_send_bits(int pid, unsigned char str)
 {
@@ -30,7 +31,7 @@ void	ft_send_bits(int pid, unsigned char str)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(42);
+		usleep(100);
 	}
 }
 
@@ -54,6 +55,10 @@ static int	ft_atoi(const char *str)
 	while ((str[i] >= '0' && str[i] <= '9') && (str[i]))
 	{
 		nb = (nb * 10) + (str[i] - '0');
+		if ((nb > 9223372036854775807) && neg == 1)
+			return (-1);
+		if ((nb > 9223372036854775807) && neg == -1)
+			return (0);
 		i++;
 	}
 	return (nb * neg);
@@ -61,7 +66,7 @@ static int	ft_atoi(const char *str)
 
 int	main(int ac, char **av)
 {
-	pid_t		pid;
+	pid_t pid;
 	const char	*str;
 	int			i;
 
