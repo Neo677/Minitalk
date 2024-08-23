@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
+/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 10:01:41 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/18 12:01:49 by tomtom           ###   ########.fr       */
+/*   Created: 2024/08/23 12:07:07 by thobenel          #+#    #+#             */
+/*   Updated: 2024/08/23 12:07:09 by thobenel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	ft_handle(int sig)
 void	ft_baniere(void)
 {
 	ft_printf("********************************************\n");
+	ft_printf("*                                          *\n");
 	ft_printf("*            Welcome to MiniTalk           *\n");
+	ft_printf("*                                          *\n");
 	ft_printf("********************************************\n");
 	ft_printf("\n\n");
 }
@@ -60,8 +62,8 @@ int	main(void)
 	ft_pid();
 	signal(SIGUSR1, ft_handle);
 	signal(SIGUSR2, ft_handle);
-	ft_printf("\n            Waiting for message...\n");
 	ft_printf("********************************************\n");
+	ft_printf("*            Waiting for message...        *\n");
 	while (1)
 		pause();
 	return (0);
