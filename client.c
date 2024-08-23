@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 12:06:56 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/23 12:06:58 by thobenel         ###   ########.fr       */
+/*   Updated: 2024/08/23 21:33:30 by tomtom           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,11 @@ int	main(int ac, char **av)
 			av[0]);
 		exit(0);
 	}
-	pid = ft_atoi(av[2]);
+	pid = ft_atoi(av[1]);
 	str = av[2];
 	while (str[i])
 		ft_send_bits(pid, str[i++]);
 	ft_send_bits(pid, '\0');
-	delete_signal(pid);
 	return (0);
 }
 
@@ -117,7 +116,7 @@ int	main(int ac, char **av)
 //         pid_t server_pid = atoi(argv[2]);
 //         send_delete_signal(server_pid);
 //         printf("Signal de suppression envoyé au serveur (PID: %d)\n",
-	server_pid);
+//	server_pid);
 //     } else {
 //         // Autre logique du client (envoi de message, etc.)
 //     }
