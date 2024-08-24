@@ -18,19 +18,69 @@
 #include <unistd.h>
 #define FIN_TRANSMISSION '\0'
 
+int	ft_strlen(char *str)
+{
+	int i;
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
+
+char	strrev(char *str)
+{
+	char *dbt;
+	char *end;
+	char temp;
+
+	dbt = str;
+	end = str + ft_strlen(str) - 1;
+	while(dbt < end)
+	{
+		temp = *dbt;
+		*dbt = *end;
+		*end = temp;
+		dbt++;
+		end--;
+	}
+	return (*str);
+}
+
+char	ft_itoa(unsigned int i)
+{
+	char *str;
+	int j;
+
+	j = 0;
+	str = (char *)malloc(sizeof(char));
+	if (!str)
+		return (free(str), 0);
+	str[j] = '\0';
+	while(i > 0)
+	{
+		str[j] = (i % 10) + '0';
+		i /= 10;
+		j++;
+	}
+	if (j == 0)
+		str[j++] = '0';
+	return (strrev(str));
+}
+
 void	ft_handle(int sig)
 {
 	static unsigned char	str;
 	static int				i;
 
 	str |= (sig == SIGUSR1);
+	// str = ft_itoa(str |= (sig == SIGUSR1));
 	i++;
 	if (i == 8)
 	{
 		if (str == FIN_TRANSMISSION)
 			ft_printf("\n");
 		else
-			ft_printf("caractere recu = %c\n", str);
+			ft_printf("%c", str);
 		i = 0;
 		str = 0;
 	}
@@ -64,6 +114,7 @@ int	main(void)
 	signal(SIGUSR2, ft_handle);
 	ft_printf("********************************************\n");
 	ft_printf("*            Waiting for message...        *\n");
+	ft_printf("*                                          *\n");
 	while (1)
 		pause();
 	return (0);
