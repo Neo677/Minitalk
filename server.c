@@ -46,27 +46,6 @@ char	strrev(char *str)
 	return (*str);
 }
 
-char	ft_itoa(unsigned int i)
-{
-	char *str;
-	int j;
-
-	j = 0;
-	str = (char *)malloc(sizeof(char));
-	if (!str)
-		return (free(str), 0);
-	str[j] = '\0';
-	while(i > 0)
-	{
-		str[j] = (i % 10) + '0';
-		i /= 10;
-		j++;
-	}
-	if (j == 0)
-		str[j++] = '0';
-	return (strrev(str));
-}
-
 void	ft_handle(int sig)
 {
 	static unsigned char	str;
