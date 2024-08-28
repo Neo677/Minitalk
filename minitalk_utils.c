@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   minitalk_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
+/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 12:06:56 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/23 21:33:30 by tomtom           ###   ########.fr       */
+/*   Created: 2024/08/28 13:14:37 by thobenel          #+#    #+#             */
+/*   Updated: 2024/08/28 13:14:39 by thobenel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf/ft_printf.h"
-#include <signal.h>
-#include <stdio.h>
-#include <sys/types.h>
+#include "minitalk.h"
 #include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
 
-void	ft_send_bits(int pid, unsigned char str)
+char	ft_putstr(char *str)
 {
-	int				bits;
-	unsigned char	carac;
+	int 	i;
 
-	bits = 8;
-	carac = str;
-	while (bits > 0)
-	{
-		bits--;
-		carac = (str >> bits);
-		if (carac % 2 == 0)
-			kill(pid, SIGUSR2);
-		else
-			kill(pid, SIGUSR1);
-		usleep(42);
-	}
+	i = 0;
+	while(str[i])
+		write(1, str[i++], 1);
+	return (str);
 }
 
-static int	ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	unsigned long long	nb;
 	int					i;
@@ -64,22 +54,23 @@ static int	ft_atoi(const char *str)
 	return (nb * neg);
 }
 
-int	main(int ac, char **av)
+char	ft_itoa(unsigned int i)
 {
-	pid_t		pid;
-	const char	*str;
-	int			i;
+	char *str;
+	int j;
 
-	i = 0;
-	if (ac != 3)
+	j = 0;
+	str = (char *)malloc(sizeof(char));
+	if (!str)
+		return (free(str), 0);
+	str[j] = '\0';
+	while(i > 0)
 	{
-		ft_printf("utilise D'abord la PID = ****** || ton message == *****\n", av[0]);
-		exit(0);
+		str[j] = (i % 10) + '0';
+		i /= 10;
+		j++;
 	}
-	pid = ft_atoi(av[1]);
-	str = av[2];
-	while (str[i] != '\0')
-		ft_send_bits(pid, str[i++]);
-	ft_send_bits(pid, '\0');
-	return (0);
+	if (j == 0)
+		str[j++] = '0';
+	return (strrev(str));
 }
