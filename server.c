@@ -69,19 +69,19 @@ void	ft_handle(int sig)
 
 void	ft_baniere(void)
 {
-	ft_printf("********************************************\n");
-	ft_printf("*                                          *\n");
-	ft_printf("*            Welcome to MiniTalk           *\n");
-	ft_printf("*                                          *\n");
-	ft_printf("********************************************\n");
+	ft_printf("*------------------------------------------*\n");
+	ft_printf("|                                          |\n");
+	ft_printf("|            Welcome to MiniTalk           |\n");
+	ft_printf("|                                          |\n");
+	ft_printf("*------------------------------------------*\n");
 	ft_printf("\n\n");
 }
 
 void	ft_pid(void)
 {
-	ft_printf("********************************************\n");
-	ft_printf("*            Serveur PID: %d           *\n", getpid());
-	ft_printf("********************************************\n");
+	ft_printf("*------------------------------------------*\n");
+	ft_printf("|            Serveur PID: %d           |\n", getpid());
+	ft_printf("*------------------------------------------*\n");
 	ft_printf("\n\n");
 }
 
@@ -91,9 +91,10 @@ int	main(void)
 	ft_pid();
 	signal(SIGUSR1, ft_handle);
 	signal(SIGUSR2, ft_handle);
-	ft_printf("********************************************\n");
-	ft_printf("*            Waiting for message...        *\n");
-	ft_printf("*                                          *\n");
+	ft_printf("*------------------------------------------*\n");
+	ft_printf("|            Waiting for message...        |\n");
+	ft_printf("|                                          |\n");
+	ft_printf("|                                          |\n");
 	while (1)
 		pause();
 	return (0);
