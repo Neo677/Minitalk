@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 13:14:37 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/28 13:14:39 by thobenel         ###   ########.fr       */
+/*   Updated: 2024/08/29 19:31:43 by tomtom           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
+
+int	ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
 
 void	ft_putchar_fd(char c, int fd)
 {
