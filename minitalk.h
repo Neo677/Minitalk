@@ -17,16 +17,11 @@
 #include <stdlib.h>
 #include <signal.h>
 
-typedef struct mini_data
-{
-	int			x;
-	char		y;
-	int			pid;
-}		mini_dato;
-
+void	ft_putchar_fd(char c, int fd);
 char	ft_putstr(char *str);
-int	ft_atoi(const char *str);
-char	ft_itoa(unsigned int i);
+char	ft_putstr_fd(char *str, int fd);
+int ft_putnbr_fd(int nb, int fd);
+
 
 
 #endif

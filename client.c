@@ -11,58 +11,47 @@
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
+#include "minitalk.h"
 #include <signal.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
 
-void	ft_send_bits(int pid, unsigned char str)
+void	ft_send_bits(int pid, char *str)
 {
-	int				bits;
-	unsigned char	carac;
+	int		bits;
+	char	carac;
 
 	bits = 8;
-	carac = str;
-	while (bits > 0)
+	while (*str)
 	{
-		bits--;
-		carac = (str >> bits);
-		if (carac % 2 == 0)
-			kill(pid, SIGUSR2);
-		else
-			kill(pid, SIGUSR1);
-		usleep(42);
+		carac = *str++;
+		while(bits--)
+		{
+			if (carac >> 2 == 0)
+				kill(pid, SIGUSR2);
+			else
+				kill(pid, SIGUSR1);
+			usleep(42);
+		}
 	}
 }
 
-static int	ft_atoi(const char *str)
+static void	send_count(int signal)
 {
-	unsigned long long	nb;
-	int					i;
-	int					neg;
+	int	get;
 
-	i = 0;
-	neg = 1;
-	nb = 0;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	get = 0;
+	if (signal == SIGUSR1)
+		get++;
+	else
 	{
-		if (str[i] == '-')
-			neg *= -1;
-		i++;
+		ft_putnbr_fd(get, 1);
+		ft_putchar_fd('\n', 1);
+		exit (0);
 	}
-	while ((str[i] >= '0' && str[i] <= '9') && (str[i]))
-	{
-		nb = (nb * 10) + (str[i] - '0');
-		if ((nb > 9223372036854775807) && neg == 1)
-			return (-1);
-		if ((nb > 9223372036854775807) && neg == -1)
-			return (0);
-		i++;
-	}
-	return (nb * neg);
 }
+
 
 int	main(int ac, char **av)
 {

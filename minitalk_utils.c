@@ -15,62 +15,73 @@
 #include <stdio.h>
 #include <signal.h>
 
-char	ft_putstr(char *str)
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+char	ft_putstr_fd(char *str, int fd)
 {
 	int 	i;
-
 	i = 0;
+	if (*str == '\0')
+	    return (0);
 	while(str[i])
-		write(1, str[i++], 1);
+	{
+		ft_putchar_fd(fd, str[i]);
+        i++;
+	}
 	return (str);
 }
 
-int	ft_atoi(const char *str)
+int ft_putnbr_fd(int nb, int fd)
 {
-	unsigned long long	nb;
-	int					i;
-	int					neg;
-
-	i = 0;
-	neg = 1;
-	nb = 0;
-	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	if (nb == -2147483648)
 	{
-		if (str[i] == '-')
-			neg *= -1;
-		i++;
+		ft_putchar_fd(fd, '-');
+		ft_putchar_fd(fd, "2");
+        ft_putnbr_fd(147483647, fd);
+        return (0);
 	}
-	while ((str[i] >= '0' && str[i] <= '9') && (str[i]))
+	else if (nb < 0 && (nb != -2147483648))
 	{
-		nb = (nb * 10) + (str[i] - '0');
-		if ((nb > 9223372036854775807) && neg == 1)
-			return (-1);
-		if ((nb > 9223372036854775807) && neg == -1)
-			return (0);
-		i++;
+		ft_putchar_fd(fd, '-');
+		ft_putnbr_fd(fd, nb);
 	}
-	return (nb * neg);
+	else if (nb > 9)
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		ft_putnbr_fd(nb % 10, fd);
+	}
+	else
+		ft_putchar_fd(nb + '0', fd);
 }
 
-char	ft_itoa(unsigned int i)
-{
-	char *str;
-	int j;
+// int	ft_atoi(const char *str)
+// {
+// 	unsigned long long	nb;
+// 	int					i;
+// 	int					neg;
 
-	j = 0;
-	str = (char *)malloc(sizeof(char));
-	if (!str)
-		return (free(str), 0);
-	str[j] = '\0';
-	while(i > 0)
-	{
-		str[j] = (i % 10) + '0';
-		i /= 10;
-		j++;
-	}
-	if (j == 0)
-		str[j++] = '0';
-	return (strrev(str));
-}
+// 	i = 0;
+// 	neg = 1;
+// 	nb = 0;
+// 	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
+// 		i++;
+// 	if (str[i] == '-' || str[i] == '+')
+// 	{
+// 		if (str[i] == '-')
+// 			neg *= -1;
+// 		i++;
+// 	}
+// 	while ((str[i] >= '0' && str[i] <= '9') && (str[i]))
+// 	{
+// 		nb = (nb * 10) + (str[i] - '0');
+// 		if ((nb > 9223372036854775807) && neg == 1)
+// 			return (-1);
+// 		if ((nb > 9223372036854775807) && neg == -1)
+// 			return (0);
+// 		i++;
+// 	}
+// 	return (nb * neg);
+// }

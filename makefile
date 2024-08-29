@@ -1,29 +1,36 @@
-SOURCES = server.c client.c
-OBJECTS = $(SOURCES:.c=.o)
-
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fPIE
+CFLAGS = -Wall -Werror -Wextra -fPIC -no-pie
+
+PRINTF_PATH = ft_printf
+PRINTF_LIB = $(PRINTF_PATH)/ft_printf.a
+PRINTF_INC = -I$(PRINTF_PATH)
+
+SERVER = server.c
+CLIENT = client.c
+SERVER_EXE = $(SERVER:.c=.o)
+CLIENT_EXE = $(CLIENT:.c=.o)
 
 all: server client
 
-server: server.o ft_printf/libftprintf.a
-	$(CC) -o $@ $< -Lft_printf -lftprintf
+server: $(SERVER_EXE) $(PRINTF_LIB)
+	$(CC) $(CFLAGS) $(SERVER_EXE) -o server -L$(PRINTF_PATH) -l:ft_printf.a
 
-client: client.o ft_printf/libftprintf.a
-	$(CC) -o $@ $< -Lft_printf -lftprintf
+client: $(CLIENT_EXE) $(PRINTF_LIB)
+	$(CC) $(CFLAGS) $(CLIENT_EXE) -o client -L$(PRINTF_PATH) -l:ft_printf.a
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $<
+	$(CC) $(CFLAGS) $(PRINTF_INC) -c $< -o $@
 
-ft_printf/libftprintf.a:
-	make -C ft_printf
+$(PRINTF_LIB):
+	make -C $(PRINTF_PATH)
 
 clean:
-	rm -f $(OBJECTS)
-	$(MAKE) -C ft_printf clean
-	
+	rm -f $(SERVER_OBJS) $(CLIENT_OBJS)
+	make -C $(PRINTF_PATH)
+
 fclean: clean
-	rm -f server client ft_printf/libftprintf.a
+	rm -f $(SERVER_EXE) $(CLIENT_EXE)
+	make -C $(PRINTF_PATH) fclean
 
 re: fclean all
 
