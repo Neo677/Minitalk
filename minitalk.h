@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 13:26:45 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/28 13:26:47 by thobenel         ###   ########.fr       */
+/*   Updated: 2024/08/29 19:32:14 by tomtom           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_putchar_fd(char c, int fd);
 char	ft_putstr(char *str);
 char	ft_putstr_fd(char *str, int fd);
 int ft_putnbr_fd(int nb, int fd);
+int	ft_strlen(char *str);
 
 
 
