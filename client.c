@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf/ft_printf.h"
 #include "minitalk.h"
 #include <signal.h>
 #include <stdio.h>
-#include <sys/types.h>
 #include <unistd.h>
 
 void	ft_send_bits(int pid, char *str)
@@ -22,9 +20,9 @@ void	ft_send_bits(int pid, char *str)
 	int		bits;
 	char	carac;
 
-	bits = 8;
 	while (*str)
 	{
+		bits = 8;
 		carac = *str++;
 		while(bits--)
 		{
@@ -39,15 +37,15 @@ void	ft_send_bits(int pid, char *str)
 
 static void	send_count(int signal)
 {
-	int	get;
+	static int	get;
 
 	get = 0;
 	if (signal == SIGUSR1)
-		get++;
+		++get;
 	else
 	{
 		ft_putnbr_fd(get, 1);
-		ft_putchar_fd('\n', 1);
+		ft_pustchar_fd('\n', 1);
 		exit (0);
 	}
 }
@@ -56,9 +54,17 @@ int main(int ac, char **av)
 {
 	if (ac !=  3 || !ft_strlen(av[2]))
 		return (1);
-	ft_putstr_fd("sent ... :", 1);
-	
-
+	ft_puststr_fd("sent ...	:", 1);
+	ft_putnbr_fd(ft_strlen(av[2]), 1);
+	ft_pustchar_fd('\n', 1);
+	ft_puststr_fd("Receveid: ", 1);
+	signal(SIGUSR1, send_count);
+	signal(SIGUSR2, send_count);
+	ft_send_bits(ft_atoi(av[1]), av[2]);
+	while(1)
+		pause();
+	return(0);
+}
 
 // int	main(int ac, char **av)
 // {

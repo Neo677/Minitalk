@@ -10,58 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf/ft_printf.h"
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "minitalk.h"
+
 #include <unistd.h>
-#define FIN_TRANSMISSION '\0'
+#include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-int	ft_strlen(char *str)
+
+static void	ft_tyesfada(char c, int fd)
 {
-	int i;
-	i = 0;
-	while(str[i])
-		i++;
-	return (i);
+	write(fd, &c, 1);
 }
 
-char	strrev(char *str)
-{
-	char *dbt;
-	char *end;
-	char temp;
-
-	dbt = str;
-	end = str + ft_strlen(str) - 1;
-	while(dbt < end)
-	{
-		temp = *dbt;
-		*dbt = *end;
-		*end = temp;
-		dbt++;
-		end--;
-	}
-	return (*str);
-}
-
-void	ft_handle(int sig)
+static void	ft_handle(int sig, siginfo_t *info, void *txt)
 {
 	static unsigned char	str;
 	static int				i;
+	static __pid_t			pid;
 
-	str |= (sig == SIGUSR1);
-	// str = ft_itoa(str |= (sig == SIGUSR1));
+	(void)txt;
+	i = 0;
+	pid = 0;
+	str = 0;
+	if (!pid)
+		pid = info->si_pid;
+	str |= (sig == SIGUSR2);
 	i++;
 	if (i == 8)
 	{
-		if (str == FIN_TRANSMISSION)
-			ft_printf("\n");
-		else
-			ft_printf("%c", str);
 		i = 0;
+		if (!str)
+		{
+			kill(pid, SIGUSR2);
+			pid = 0;
+			return ;
+		}
+		ft_tyesfada(str, 1);
 		str = 0;
+		kill(pid, SIGUSR1);
 	}
 	else
 		str <<= 1;
@@ -87,10 +74,14 @@ void	ft_pid(void)
 
 int	main(void)
 {
+	struct sigaction s_sigaction;
+
 	ft_baniere();
 	ft_pid();
-	signal(SIGUSR1, ft_handle);
-	signal(SIGUSR2, ft_handle);
+	s_sigaction.sa_sigaction = ft_handle;
+	s_sigaction.sa_flags = SA_SIGINFO;
+	sigaction(SIGUSR1, &s_sigaction, 0);
+	sigaction(SIGUSR2, &s_sigaction, 0);
 	ft_printf("*------------------------------------------*\n");
 	ft_printf("|            Waiting for message...        |\n");
 	ft_printf("|                                          |\n");
