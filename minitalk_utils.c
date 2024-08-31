@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <signal.h>
@@ -25,12 +24,12 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_pustchar_fd(char c, int fd)
+void	ft_putchar(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-char	ft_putstr_fd(char *str, int fd)
+char	ft_putstr(char *str, int fd)
 {
 	int 	i;
 	i = 0;
@@ -38,7 +37,7 @@ char	ft_putstr_fd(char *str, int fd)
 	    return (0);
 	while(str[i])
 	{
-		ft_pustchar_fd(fd, str[i]);
+		ft_putchar_fd(fd, str[i]);
         i++;
 	}
 	return (str);
