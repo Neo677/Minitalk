@@ -3,68 +3,135 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
+/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 12:06:56 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/29 20:21:41 by tomtom           ###   ########.fr       */
+/*   Created: 2024/08/31 12:15:37 by thobenel          #+#    #+#             */
+/*   Updated: 2024/08/31 12:15:39 by thobenel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft/libft.h"
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
 
-void	ft_send_bits(int pid, char *str)
+static void	ft_send_count(int signal)
 {
-	int		bits;
-	char	carac;
+	static int	received = 0;
+
+	if (signal == SIGUSR1)
+		++received;
+	else
+	{
+		ft_putnbr_fd(received, 1);
+		ft_putchar_fd('\n', 1);
+		exit(0);
+	}
+}
+
+// static void	send_count(int signal)
+// {
+// 	static int	get;
+
+// 	get = 0;
+// 	if (signal == SIGUSR1)
+// 		++get;
+// 	else
+// 	{
+// 		ft_putnbr_fd(get, 1);
+// 		ft_putchar_fd('\n', 1);
+// 		exit (0);
+// 	}
+// }
+
+static void	ft_send_bits(int pid, char *str)
+{
+	int		i;
+	char	c;
 
 	while (*str)
 	{
-		bits = 8;
-		carac = *str++;
-		while(bits--)
+		i = 8;
+		c = *str++;
+		while (i--)
 		{
-			if (carac >> bits & 1)
+			if (c >> i & 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
 			usleep(100);
 		}
 	}
-}
-
-static void	send_count(int signal)
-{
-	static int	get;
-
-	get = 0;
-	if (signal == SIGUSR1)
-		++get;
-	else
+	i = 8;
+	while (i--)
 	{
-		ft_putnbr_fd(get, 1);
-		ft_pustchar_fd('\n', 1);
-		exit (0);
+		kill(pid, SIGUSR1);
+		usleep(100);
 	}
 }
 
-int main(int ac, char **av)
+// static void	ft_send_bits(int pid, char *str)
+// {
+// 	int		bits;
+// 	char	carac;
+
+// 	while (*str)
+// 	{
+// 		bits = 8;
+// 		carac = *str++;
+// 		while(bits--)
+// 		{
+// 			if (carac >> bits & 1)
+// 				kill(pid, SIGUSR2);
+// 			else
+// 				kill(pid, SIGUSR1);
+// 			usleep(100);
+// 		}
+// 	}
+// 	bits = 8;
+// 	while(bits--)
+// 	{
+// 		kill(pid, SIGUSR1);
+// 		usleep(100);
+// 	}
+// }
+
+int	main(int argc, char **argv)
 {
-	if (ac !=  3 || !ft_strlen(av[2]))
+	if (argc != 3 || !ft_strlen(argv[2]))
 		return (1);
-	ft_puststr_fd("sent ...	:", 1);
-	ft_putnbr_fd(ft_strlen(av[2]), 1);
-	ft_pustchar_fd('\n', 1);
-	ft_puststr_fd("Receveid: ", 1);
-	signal(SIGUSR1, send_count);
-	signal(SIGUSR2, send_count);
-	ft_send_bits(ft_atoi(av[1]), av[2]);
-	while(1)
+	ft_putstr_fd("Sent    : ", 1);
+	ft_putnbr_fd(ft_strlen(argv[2]), 1);
+	ft_putchar_fd('\n', 1);
+	ft_putstr_fd("Received: ", 1);
+	signal(SIGUSR1, ft_send_count);
+	signal(SIGUSR2, ft_send_count);
+	ft_send_bits(ft_atoi(argv[1]), argv[2]);
+	while (1)
 		pause();
-	return(0);
+	return (0);
 }
+
+// int main(int ac, char **av)
+// {
+// 	if (ac !=  3 || !ft_strlen(av[2]))
+// 		return (1);
+// 	ft_putstr_fd("sent ...	: ", 1);
+// 	ft_putnbr_fd(ft_strlen(av[2]), 1);
+// 	ft_putchar_fd('\n', 1);
+// 	ft_putstr_fd("Receveid: ", 1);
+// 	signal(SIGUSR1, send_count);
+// 	signal(SIGUSR2, send_count);
+// 	ft_send_bits(ft_atoi(av[1]), av[2]);
+// 	while(1)
+// 		pause();
+// 	return(0);
+// }
+
+
+
+
+
 
 // int	main(int ac, char **av)
 // {
