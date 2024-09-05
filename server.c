@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 12:15:54 by thobenel          #+#    #+#             */
-/*   Updated: 2024/08/31 12:17:25 by thobenel         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:24:15 by tomtom           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,12 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void	ft_handle(int signal, siginfo_t *info, void *txt)
+int ft_get_len|bit(int signal, int len)
 {
-	static int				bits = 0;
-	static __pid_t		pid = 0;
-	static unsigned char		carac = 0;
-
-	// bits = 0;
-	// pid = 0;
-	// carac = 0;
-	(void)txt;
-	if (!pid)
-		pid = info->si_pid;
-	carac |= (signal == SIGUSR2);
-	if (++bits == 8)
-	{
-		bits = 0;
-		if (!carac)
-		{
-			kill(pid, SIGUSR2);
-			pid = 0;
-			return ;
-		}
-		ft_putchar_fd(carac, 1);
-		carac  = 0;
-		kill(pid, SIGUSR1);
-	}
-	else
-		carac <<= 1;
+	len = len >> 1;
+	if (signal == SIGUSR2)
+		len = len | (1 << 30);
+	return (len)
 }
 
 int	main(void)
@@ -61,40 +39,6 @@ int	main(void)
 		pause();
 	return (0);
 }
-
-// static void	ft_handle(int sig, siginfo_t *info, void *txt)
-// {
-// 	static unsigned char	str;
-// 	static int				i;
-// 	static __pid_t			pid;
-
-// 	(void)txt;
-// 	i = 0;
-// 	pid = 0;
-// 	str = 0;
-// 	if (!pid)
-// 		pid = info->si_pid;
-// 	str |= (sig == SIGUSR2);
-// 	if (++i == 8)
-// 	{
-// 		i = 0;
-// 		if (!str)
-// 		{
-// 			kill(pid, SIGUSR2);
-// 			pid = 0;
-// 			return ;
-// 		}
-// 		ft_putchar_fd(str, 1);
-// 		str = 0;
-// 		kill(pid, SIGUSR1);
-// 	}
-// 	else
-// 		str <<= 1;
-// }
-
-
-
-
 
 // void	ft_baniere(void)
 // {
@@ -128,4 +72,30 @@ int	main(void)
 // 	while (1)
 // 		pause();
 // 	return (0);
+// }
+
+//static void	ft_handle(int signal, siginfo_t *info, void *txt)
+// {
+// 	static int				bits = 0;
+// 	static pid_t			pid = 0;
+// 	static unsigned char	carac = 0;
+
+// 	if (!pid)
+// 		pid = info->si_pid;
+// 	carac |= (signal == SIGUSR2);
+// 	if (++bits == 8)
+// 	{
+// 		bits = 0;
+// 		if (!carac)
+// 		{
+// 			kill(pid, SIGUSR2);
+// 			pid = 0;
+// 			return ;
+// 		}
+// 		ft_putchar_fd(carac, 1);
+// 		carac = 0;
+// 		kill(pid, SIGUSR1);
+// 	}
+// 	else
+// 		carac <<= 1;
 // }
