@@ -1,6 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra 
-#-fPIC -no-pie
+CFLAGS = -Wall -Werror -Wextra -fPIC -no-pie
 
 # PRINTF_PATH = ft_printf
 # PRINTF_LIB = $(PRINTF_PATH)/ft_printf.a
