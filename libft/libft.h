@@ -13,12 +13,12 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <limits.h>
+# include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <limits.h>
-# include <stdarg.h>
 
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *s1, const char *s2, size_t n);
@@ -56,13 +56,13 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				**ft_split(char const *s, char c);
 
 //		printf
-void	ft_putchar_fd_two(char s, int fd, int *count);
-void	ft_putstr_fd_two(char *s, int fd, int *count);
-void	ft_putnbr_basefd_one(long long n, char *base, int fd, int *count);
-void	ft_putnbr_basefd_two(unsigned long long n, char *base, int fd,
-			int *count);
-int		ft_printf(const char *format, ...);
-
+void				ft_putchar_fd_two(char s, int fd, int *count);
+void				ft_putstr_fd_two(char *s, int fd, int *count);
+void				ft_putnbr_basefd_one(long long n, char *base, int fd,
+						int *count);
+void				ft_putnbr_basefd_two(unsigned long long n, char *base,
+						int fd, int *count);
+int					ft_printf(const char *format, ...);
 
 // bonus
 

@@ -1,5 +1,17 @@
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -fPIC -no-pie
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: thobenel <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/09/07 18:12:06 by thobenel          #+#    #+#              #
+#    Updated: 2024/09/07 18:12:08 by thobenel         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
 
 # PRINTF_PATH = ft_printf
 # PRINTF_LIB = $(PRINTF_PATH)/ft_printf.a
@@ -19,7 +31,7 @@ all: server client
 server: $(SERVER_EXE) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(SERVER_EXE) -o server -L$(LIBFT_PATH) -l:libft.a
 
-client: $(CLIENT_EXE) $(PRINTF_LIB) $(LIBFT_LIB)
+client: $(CLIENT_EXE) $(LIBFT_LIB)
 	$(CC) $(CFLAGS) $(CLIENT_EXE) -o client -L$(LIBFT_PATH) -l:libft.a
 
 
@@ -43,7 +55,7 @@ $(LIBFT_LIB):
 
 clean:
 	rm -f $(SERVER_OBJS) $(CLIENT_OBJS)
-	make -C $(LIBFT_PATH)
+	make -C $(LIBFT_PATH) clean
 
 fclean: clean
 	rm -f $(SERVER_EXE) $(CLIENT_EXE) server client
