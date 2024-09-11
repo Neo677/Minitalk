@@ -22,7 +22,7 @@ static char	*message_allocation(int len)
 	return (res);
 }
 
-static void	finish_it_bro(char **res, __pid_t client_pid, int *len, int *i)
+static void	finish_it_bro(char **res, pid_t client_pid, int *len, int *i)
 {
 	ft_printf("%s\n", *res);
 	usleep(51);
@@ -38,7 +38,7 @@ static void	get_this_signal(int signo, siginfo_t *info, void *context)
 	static int	len = 0;
 	static int	i = 0;
 	static char	*res = NULL;
-	__pid_t		pid;
+	pid_t		pid;
 
 	pid = info->si_pid;
 	if (i < 31)
@@ -61,7 +61,7 @@ static void	get_this_signal(int signo, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	__pid_t				pid;
+	pid_t				pid;
 	struct sigaction	action;
 
 	pid = getpid();
@@ -96,7 +96,7 @@ int	main(void)
 // 	return (len);
 // }
 
-// static void	show_up(char **rslt, ____pid_t pid, int *len, int *i)
+// static void	show_up(char **rslt, __pid_t pid, int *len, int *i)
 // {
 // 	ft_printf("%s\n", *rslt);
 // 	usleep(51);
