@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thobenel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 18:11:47 by thobenel          #+#    #+#             */
-/*   Updated: 2024/09/07 18:11:49 by thobenel         ###   ########.fr       */
+/*   Updated: 2024/09/11 15:21:28 by tomtom           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	error_cheker(int ac)
 	return (0);
 }
 
-static int	send_lengh(__pid_t server_pid, int len)
+static int	send_lengh(pid_t server_pid, int len)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ static int	send_lengh(__pid_t server_pid, int len)
 	return (0);
 }
 
-static int	send_message(__pid_t server_pid, char *msg, int delay)
+static int	send_message(pid_t server_pid, char *msg, int delay)
 {
 	int	i;
 	int	j;
@@ -81,7 +81,7 @@ static int	send_message(__pid_t server_pid, char *msg, int delay)
 
 int	main(int ac, char **av)
 {
-	__pid_t	server_pid;
+	pid_t	server_pid;
 	char	*message;
 	int		len;
 	int		delay;
@@ -102,7 +102,7 @@ int	main(int ac, char **av)
 	return (0);
 }
 
-/*static int	ft_send_count(__pid_t pid, int len)
+/*static int	ft_send_count(pid_t pid, int len)
 {
 	int	i;
 
@@ -155,7 +155,7 @@ int	main(int ac, char **av)
 	int			len;
 	int			waiter;
 	char		*str;
-	____pid_t	pid;
+	__pid_t	pid;
 
 	if (handle_bad_enter(ac))
 		return (ft_printf("God damn bro you cant even enter
@@ -192,7 +192,7 @@ int	main(int argc, char **argv)
 
 int	main(int ac, char **av)
 {
-	__pid_t		pid;
+	pid_t		pid;
 	const char	*str;
 	int			i;
 
