@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thobenel <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tomtom <tomtom@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/07 18:12:06 by thobenel          #+#    #+#              #
-#    Updated: 2024/09/07 18:12:08 by thobenel         ###   ########.fr        #
+#    Updated: 2024/09/11 16:54:19 by tomtom           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,10 @@ CLIENT_EXE = $(CLIENT:.c=.o)
 all: server client
 
 server: $(SERVER_EXE) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(SERVER_EXE) -o server -L$(LIBFT_PATH) -l:libft.a
+	$(CC) $(CFLAGS) $(SERVER_EXE) -o server -L$(LIBFT_PATH) -lft
 
 client: $(CLIENT_EXE) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(CLIENT_EXE) -o client -L$(LIBFT_PATH) -l:libft.a
+	$(CC) $(CFLAGS) $(CLIENT_EXE) -o client -L$(LIBFT_PATH) -lft
 
 
 # server: $(SERVER_EXE) $(PRINTF_LIB) $(LIBFT_LIB)
