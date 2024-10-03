@@ -1,11 +1,11 @@
 {
   "files.associations": {
-	"ft_printf.h": "c",
-	"signal.h": "c",
-	"unistd.h": "c",
-	"shout": "c",
-	"ohhh": "c"
-},
+    "ft_printf.h": "c",
+    "signal.h": "c",
+    "unistd.h": "c",
+    "shout": "c",
+    "ohhh": "c"
+  },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
