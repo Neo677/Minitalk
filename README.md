@@ -1,18 +1,18 @@
-Minitalk :
+Minitalk 
 Minitalk est un project de ecole 42 qui consiste a cree un programme de communication entre un serveur et un client en utlisant des signaux UNIX. Le client envoie un message au serveur qui est cense l'afficher.
 
-Fonctionnalités :
+Fonctionnalités 
 communications entre un serveur et un client via les signaux UNIX (SIGUSR1 et SIGUSR2), transmission de chaine de caracteres du client au serveur.
 Gestions des erreur pour les signaux non reçus ou les mauvais arguments.
 Affichage des messages reçus par le serveur.
 
-Fichier du projet :
+Fichier du projet 
   server.c : Contient le code du serveur, qui attend les signaux du client et affiche les messages reçus.
   client.c : Contient le code du client, qui envoie un message caractère par caractère au serveur.
   minitalk.h : Fichier d’en-tête contenant les prototypes des fonctions et les inclusions nécessaires.
   Makefile : Automatisation de la compilation avec des règles pour all, clean, fclean et re.
 
-Utilisation :
+Utilisation 
  A) Compilation
 Pour compiler le projet, utilisez la commande suivante :
 		make
@@ -25,17 +25,9 @@ Le serveur affiche son PID dans le terminal. Notez-le pour le client.
 
  C) Envoi d’un message avec le client
 Utilisez le PID du serveur pour envoyer un message :
-			./client <PID_SERVER> "Votre message ici"
+			'''./client <PID_SERVER> "Votre message ici" '''
 Exemple :
 			./client 12345 "Bonjour server, ça va ? ..."
-
-
-		➜  parsing git:(parsing) ✗ echo $A1  
-
-		➜  parsing git:(parsing) ✗ echo $1A
-		A
-		➜  parsing git:(parsing) ✗ 
-			(ONLY ON 42 COMPUTER !!!)
 
 Rules :
 
