@@ -121,4 +121,8 @@ Crédits :
 
 Projet réalisé dans le cadre de l’école 42.
 
-N’hésitez pas à me dire si vous souhaitez ajouter d’autres sections ou modifier certains points !
+Merci d’avoir pris le temps de lire ce README !
+
+On espère que vous prendrez plaisir à utiliser Minitalk et à explorer les subtilités des signaux Unix. ⚡
+
+N’hésitez pas à poser des questions ou à partager vos suggestions. Bon courage et amusez-vous bien ! 😊
