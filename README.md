@@ -29,6 +29,14 @@ Utilisez le PID du serveur pour envoyer un message :
 Exemple :
 			./client 12345 "Bonjour server, ça va ? ..."
 
+
+		➜  parsing git:(parsing) ✗ echo $A1  
+
+		➜  parsing git:(parsing) ✗ echo $1A
+		A
+		➜  parsing git:(parsing) ✗ 
+			(ONLY ON 42 COMPUTER !!!)
+
 Rules :
 
 Norme
