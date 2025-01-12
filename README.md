@@ -15,7 +15,7 @@ Fichier du projet :
 Utilisation :
  A) Compilation
 Pour compiler le projet, utilisez la commande suivante :
-			make
+		make
 Cela génère les exécutables server et client.
 
  B) Lancement du serveur
